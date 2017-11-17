@@ -1,4 +1,4 @@
 #!/bin/bash
 
 wercker build --artifacts && \
-wercker deploy --docker-local --pipeline build-image
+wercker deploy --pipeline build-image --docker-local
