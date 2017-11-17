@@ -1,0 +1,29 @@
+box:
+  id: golang
+
+build:
+  steps:
+    - wercker/golint
+    - script:
+        name: go build
+        code: |
+            go build \
+            -o "$WERCKER_OUTPUT_DIR/mycoolapp"          
+
+build-image:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+    - script:
+        name: copy app
+        code: mv ./mycoolapp /mycoolapp
+
+    - internal/docker-push:
+        repository: mygithuborg/mycoolapp
+        registry: https://registry.hub.docker.com/v2
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
+        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT,$WERCKER_GIT_COMMIT,latest
+        cmd: /mycoolapp
+ 
