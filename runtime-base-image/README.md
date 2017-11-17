@@ -13,7 +13,7 @@ This has a simple example of how this might be achieved.
 ./run.sh
 ```
 
-This runs the following command:
+This runs the following Wercker CLI command:
 
 ```
 wercker build --artifacts && \
@@ -34,3 +34,13 @@ docker run --rm mygithuborg/mycoolapp:latest
 
 Which should print out `Nice to see your sir!` and exit :)
 
+
+
+
+> Note: The run script first pulls the alpine image:
+> 
+> ```
+> docker pull alpine
+> ```
+> 
+> This is because we are using the `--docker-local` flag which prevents use of remote registries for both pull and push. We only really want it in order to push to our local Docker registry, but the side-effect is that we can't pull down images from remote registries, so we get around it by first pulling that image into our local registry.
