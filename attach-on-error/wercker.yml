@@ -1,0 +1,12 @@
+box:
+  id: alpine
+  cmd: /bin/sh
+
+build:
+  steps:
+    - script:
+        name: print hello
+        code: echo "hello"
+    - script:
+        name: fail
+        code: exit 1
